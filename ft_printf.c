@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:26:26 by francsan          #+#    #+#             */
-/*   Updated: 2022/03/15 16:27:30 by francsan         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:13:33 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	ft_select(char *s, va_list a)
 	if (*s == 's')
 		len += ft_putstr(va_arg(a, char *));
 	if (*s == 'p')
-		len += ft_putadd(va_arg(a, void *));
+	{
+		len += ft_putstr("0x");
+		len += ft_putadd(va_arg(a, unsigned long));
+	}
 	if (*s == 'd')
 		len += ft_putnbr(va_arg(a, int));
 	if (*s == 'i')
@@ -61,17 +64,17 @@ int	ft_printf(const char *s, ...)
 	return (len);
 }
 
-#include <stdio.h>
+/*#include <stdio.h>
 
 int	main()
 {
 	int	i;
 	int	j;
-	int	k = -2476278;
+	int	k = 0;
 	int	*l;
 
 	l = &k;
 	i = printf("%p\n", l);
 	j = ft_printf("%p\n", l);
 	printf("%d\n%d\n", i, j);
-}
+}*/

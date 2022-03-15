@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 15:44:06 by francsan          #+#    #+#             */
-/*   Updated: 2022/03/15 16:29:49 by francsan         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:11:53 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,19 @@ int	ft_putnbr_hex(unsigned int nbr, char c)
 	return (len);
 }
 
-int	ft_putadd(void *p)
+int	ft_putadd(unsigned long add)
 {
-	int				len;
-	unsigned long	nbr;
+	int	len;
 
 	len = 0;
-	nbr = (unsigned long)&p;
-	if (nbr < 10)
-		len += ft_putchar(nbr + 48);
-	else if (nbr < 16)
-		len += ft_putchar(nbr + 87);
+	if (add < 10)
+		len += ft_putchar(add + 48);
+	else if (add < 16)
+		len += ft_putchar(add + 87);
 	else
 	{
-		len += ft_putadd(nbr / 16);
-		len += ft_putadd(nbr % 16);
+		len += ft_putadd(add / 16);
+		len += ft_putadd(add % 16);
 	}
 	return (len);
 }
