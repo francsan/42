@@ -3,46 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 14:32:58 by francisco         #+#    #+#             */
-/*   Updated: 2022/03/14 22:53:08 by francisco        ###   ########.fr       */
+/*   Created: 2022/03/07 17:26:26 by francsan          #+#    #+#             */
+/*   Updated: 2022/03/15 16:27:30 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
-#include <stdio.h>
+#include "ft_printf.h"
 
-int	ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putnbr_hex(int nbr, char c)
+int	ft_select(char *s, va_list a)
 {
 	int	len;
-	int	num;
 
 	len = 0;
-	num = nbr;
-	if (num < 0)
-		num = (unsigned int)nbr;
-	if (num < 10)
-		len += ft_putchar(num + 48);
-	else if (num < 16)
-	{
-		if (c == 'x')
-			len += ft_putchar(num + 87);
-		if (c == 'X')
-			len += ft_putchar(num + 55);
-	}
-	else
-	{
-		len += ft_putnbr_hex(num / 16, c);
-		len += ft_putnbr_hex(num % 16, c);
-	}
+	s++;
+	if (*s == 'c')
+		len += ft_putchar(va_arg(a, int));
+	if (*s == 's')
+		len += ft_putstr(va_arg(a, char *));
+	if (*s == 'p')
+		len += ft_putadd(va_arg(a, void *));
+	if (*s == 'd')
+		len += ft_putnbr(va_arg(a, int));
+	if (*s == 'i')
+		len += ft_putnbr(va_arg(a, int));
+	if (*s == 'u')
+		len += ft_putnbr_unsigned(va_arg(a, unsigned int));
+	if (*s == 'x' || *s == 'X')
+		len += ft_putnbr_hex(va_arg(a, int), *s);
+	if (*s == '%')
+		len += ft_putchar('%');
 	return (len);
 }
 
@@ -50,37 +41,37 @@ int	ft_printf(const char *s, ...)
 {
 	va_list	a;
 	int		len;
-	
+	int		i;
+
 	va_start(a, s);
 	len = 0;
-	while (*s != '\0')
+	i = 0;
+	while (s[i] != '\0')
 	{
-		if (*s == '%')
+		if (s[i] == '%')
 		{
-			s++;
-			if (*s == 'x' || *s == 'X')
-			{
-				len += ft_putnbr_hex(va_arg(a, int), *s);
-				s++;
-			}
+			len += ft_select((char *)&s[i], a);
+			i++;
 		}
 		else
-		{
-			len += ft_putchar(*s);
-			s++;
-		}
+			len += ft_putchar(s[i]);
+		i++;
 	}
 	va_end(a);
 	return (len);
 }
 
+#include <stdio.h>
+
 int	main()
 {
-	int	len;
-	int	len2;
-	int	nbr = -2147483648;
+	int	i;
+	int	j;
+	int	k = -2476278;
+	int	*l;
 
-	len = ft_printf("Function: %x\n", nbr);
-	len2 = printf("Original: %x\n", nbr);
-	printf("Function: %i\nOriginal: %i\n", len, len2);
+	l = &k;
+	i = printf("%p\n", l);
+	j = ft_printf("%p\n", l);
+	printf("%d\n%d\n", i, j);
 }
