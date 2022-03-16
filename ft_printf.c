@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:26:26 by francsan          #+#    #+#             */
-/*   Updated: 2022/03/15 19:13:33 by francsan         ###   ########.fr       */
+/*   Updated: 2022/03/16 00:41:44 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_select(char *s, va_list a)
 	int	len;
 
 	len = 0;
-	s++;
 	if (*s == 'c')
 		len += ft_putchar(va_arg(a, int));
 	if (*s == 's')
@@ -53,7 +52,8 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[i] == '%')
 		{
-			len += ft_select((char *)&s[i], a);
+			len += ft_select((char *)&s[i + 1], a);
+			va_arg(a, void *);
 			i++;
 		}
 		else
@@ -70,11 +70,10 @@ int	main()
 {
 	int	i;
 	int	j;
-	int	k = 0;
-	int	*l;
+	char	*str;
 
-	l = &k;
-	i = printf("%p\n", l);
-	j = ft_printf("%p\n", l);
-	printf("%d\n%d\n", i, j);
+	str = NULL;
+	i = printf(" NULL %s NULL ", str);
+	j = ft_printf("Function: NULL %s NULL \n", NULL);
+	printf("Original: %i\nFunction: %i\n", i, j);
 }*/
