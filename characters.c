@@ -6,7 +6,7 @@
 /*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 16:03:14 by francsan          #+#    #+#             */
-/*   Updated: 2022/03/15 23:34:06 by francisco        ###   ########.fr       */
+/*   Updated: 2022/03/16 16:53:40 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	ft_putstr(char *str)
 	int	len;
 
 	len = 0;
+	if (!str)
+		str = "(null)";
 	while (*str != '\0')
 	{
 		len += ft_putchar(*str);

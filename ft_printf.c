@@ -6,35 +6,35 @@
 /*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:26:26 by francsan          #+#    #+#             */
-/*   Updated: 2022/03/16 00:41:44 by francisco        ###   ########.fr       */
+/*   Updated: 2022/03/16 16:53:27 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_select(char *s, va_list a)
+int	ft_select(char c, va_list a)
 {
 	int	len;
 
 	len = 0;
-	if (*s == 'c')
+	if (c == 'c')
 		len += ft_putchar(va_arg(a, int));
-	if (*s == 's')
+	if (c == 's')
 		len += ft_putstr(va_arg(a, char *));
-	if (*s == 'p')
+	if (c == 'p')
 	{
 		len += ft_putstr("0x");
 		len += ft_putadd(va_arg(a, unsigned long));
 	}
-	if (*s == 'd')
+	if (c == 'd')
 		len += ft_putnbr(va_arg(a, int));
-	if (*s == 'i')
+	if (c == 'i')
 		len += ft_putnbr(va_arg(a, int));
-	if (*s == 'u')
+	if (c == 'u')
 		len += ft_putnbr_unsigned(va_arg(a, unsigned int));
-	if (*s == 'x' || *s == 'X')
-		len += ft_putnbr_hex(va_arg(a, int), *s);
-	if (*s == '%')
+	if (c == 'x' || c == 'X')
+		len += ft_putnbr_hex(va_arg(a, int), c);
+	if (c == '%')
 		len += ft_putchar('%');
 	return (len);
 }
@@ -52,8 +52,9 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[i] == '%')
 		{
-			len += ft_select((char *)&s[i + 1], a);
-			va_arg(a, void *);
+			len += ft_select(s[i + 1], a);
+			if (s[i + 1] != '%')
+				va_arg(a, void *);
 			i++;
 		}
 		else
@@ -70,10 +71,8 @@ int	main()
 {
 	int	i;
 	int	j;
-	char	*str;
 
-	str = NULL;
-	i = printf(" NULL %s NULL ", str);
-	j = ft_printf("Function: NULL %s NULL \n", NULL);
+	i = printf("Original:%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+	j = ft_printf("Function:%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
 	printf("Original: %i\nFunction: %i\n", i, j);
 }*/
