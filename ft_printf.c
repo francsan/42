@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:26:26 by francsan          #+#    #+#             */
-/*   Updated: 2022/03/16 16:53:27 by francisco        ###   ########.fr       */
+/*   Updated: 2022/03/22 18:59:37 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[i] == '%')
 		{
-			len += ft_select(s[i + 1], a);
-			if (s[i + 1] != '%')
-				va_arg(a, void *);
+			i++;
+			len += ft_select(s[i], a);
 			i++;
 		}
 		else
+		{
 			len += ft_putchar(s[i]);
-		i++;
+			i++;
+		}
 	}
 	va_end(a);
 	return (len);
@@ -72,7 +73,7 @@ int	main()
 	int	i;
 	int	j;
 
-	i = printf("Original:%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
-	j = ft_printf("Function:%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+	i = printf(" %c %c %c \n", '0', 0, '1');
+	j = ft_printf(" %c %c %c \n", '0', 0, '1');
 	printf("Original: %i\nFunction: %i\n", i, j);
 }*/
