@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 18:56:55 by francisco         #+#    #+#             */
-/*   Updated: 2022/04/01 19:27:25 by francisco        ###   ########.fr       */
+/*   Created: 2022/04/06 15:45:43 by francsan          #+#    #+#             */
+/*   Updated: 2022/04/06 15:45:45 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
